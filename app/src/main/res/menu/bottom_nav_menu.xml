@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Order follows the original spec: dashboard, calculator, stocks, accounts, more -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home"
-        android:title="Home" />
-    <item android:id="@+id/nav_transactions"
-        android:icon="@drawable/ic_list"
-        android:title="Transac." />
-    <item android:id="@+id/nav_calculator"
-        android:icon="@drawable/ic_calc"
-        android:title="Calc" />
-    <item android:id="@+id/nav_stocks"
-        android:icon="@drawable/ic_stocks"
-        android:title="Stocks" />
-    <item android:id="@+id/nav_accounts"
-        android:icon="@drawable/ic_accounts"
-        android:title="Accounts" />
+    <item android:id="@+id/nav_home" android:icon="@drawable/ic_home" android:title="Home" />
+    <item android:id="@+id/nav_calculator" android:icon="@drawable/ic_calc" android:title="Calc" />
+    <item android:id="@+id/nav_stocks" android:icon="@drawable/ic_stocks" android:title="Stocks" />
+    <item android:id="@+id/nav_accounts" android:icon="@drawable/ic_accounts" android:title="Accounts" />
+    <item android:id="@+id/nav_more" android:icon="@drawable/ic_more" android:title="More" />
 </menu>

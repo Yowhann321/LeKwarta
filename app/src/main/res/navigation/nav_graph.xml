@@ -7,9 +7,6 @@
     <fragment android:id="@+id/nav_home"
         android:name="com.lekwarta.app.HomeFragment"
         android:label="Home" />
-    <fragment android:id="@+id/nav_transactions"
-        android:name="com.lekwarta.app.TransactionsFragment"
-        android:label="Transactions" />
     <fragment android:id="@+id/nav_calculator"
         android:name="com.lekwarta.app.CalculatorFragment"
         android:label="Calculator" />
@@ -22,5 +19,4 @@
     <fragment android:id="@+id/nav_more"
         android:name="com.lekwarta.app.MoreFragment"
         android:label="More" />
-
 </navigation>

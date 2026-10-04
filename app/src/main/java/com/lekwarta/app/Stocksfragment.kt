@@ -83,13 +83,13 @@ class StocksFragment : Fragment() {
         private const val SEARCH_DELAY  = 500L
 
         // Dark dialog colours
-        private const val COLOR_BG       = 0xFF1A1A1A.toInt()
-        private const val COLOR_SURFACE  = 0xFF252525.toInt()
-        private const val COLOR_TEXT     = 0xFFEEEEEE.toInt()
-        private const val COLOR_HINT     = 0xFF666666.toInt()
-        private const val COLOR_SUBTEXT  = 0xFF999999.toInt()
-        private const val COLOR_DIVIDER  = 0xFF2E2E2E.toInt()
-        private const val COLOR_RED      = 0xFFFF453A.toInt()
+        private const val COLOR_BG       = 0xFF1D1230.toInt()
+        private const val COLOR_SURFACE  = 0xFF261A3B.toInt()
+        private const val COLOR_TEXT     = 0xFFF5EFE0.toInt()
+        private const val COLOR_HINT     = 0xFF6E5C8A.toInt()
+        private const val COLOR_SUBTEXT  = 0xFFB9A6D6.toInt()
+        private const val COLOR_DIVIDER  = 0xFF3A2752.toInt()
+        private const val COLOR_RED      = 0xFFFF6B6B.toInt()
     }
 
     private val refreshRunnable = object : Runnable {

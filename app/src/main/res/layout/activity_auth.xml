@@ -1,308 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="28dp">
 
-        <!-- ═══════════════════════════════════════════════════════
-             LOGIN LAYOUT
-             ═══════════════════════════════════════════════════════ -->
+        <!-- Brand -->
+        <ImageView
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="14dp"
+            android:contentDescription="LeKwarta logo"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            style="@style/LeKwarta.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LeKwarta"
+            android:textSize="34sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:text="Your money, your court"
+            android:textColor="@color/gold"
+            android:textSize="14sp" />
+
+        <!-- Login -->
         <LinearLayout
             android:id="@+id/layoutLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_court"
             android:orientation="vertical"
-            android:padding="32dp"
-            android:gravity="center_horizontal"
-            android:visibility="visible">
-
-            <!-- Logo -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="48dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/green_dark"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="₱K"
-                    android:textColor="@color/green_primary"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- App name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="LeKwarta"
-                android:textColor="@color/green_primary"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.05" />
+            android:padding="20dp">
 
             <TextView
+                style="@style/LeKwarta.Label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="40dp"
-                android:text="Your money, your court"
-                android:textColor="@color/text_hint"
-                android:textSize="13sp" />
-
-            <!-- Email -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                android:hint="Email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:text="Tip-off" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etLoginEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textEmailAddress"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Password -->
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/etLoginEmail"
+                style="@style/LeKwarta.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="12dp"
+                android:hint="Email"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/etLoginPassword"
+                style="@style/LeKwarta.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:hint="Password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:passwordToggleEnabled="true"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etLoginPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textPassword"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Login button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
+                style="@style/LeKwarta.GoldButton"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:text="Log In"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/bg_dark"
-                app:backgroundTint="@color/green_primary"
-                app:cornerRadius="12dp" />
-
-            <!-- Progress -->
-            <ProgressBar
-                android:id="@+id/pbLogin"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                android:indeterminateTint="@color/green_primary" />
+                android:layout_marginTop="4dp"
+                android:text="Log in" />
 
-            <!-- Go to register -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDemo"
+                style="@style/LeKwarta.GhostButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="🏀  Try the demo account" />
+
             <TextView
                 android:id="@+id/tvGoToRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Don't have an account? Sign up"
-                android:textColor="@color/green_primary"
-                android:textSize="14sp"
-                android:clickable="true"
-                android:focusable="true" />
-
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="New here? Create an account"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
         </LinearLayout>
 
-        <!-- ═══════════════════════════════════════════════════════
-             REGISTER LAYOUT
-             ═══════════════════════════════════════════════════════ -->
+        <!-- Register -->
         <LinearLayout
             android:id="@+id/layoutRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_card_court"
             android:orientation="vertical"
-            android:padding="32dp"
-            android:gravity="center_horizontal"
+            android:padding="20dp"
             android:visibility="gone">
 
-            <!-- Logo -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="48dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/green_dark"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="₱K"
-                    android:textColor="@color/green_primary"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-            </androidx.cardview.widget.CardView>
-
             <TextView
+                style="@style/LeKwarta.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Create Account"
-                android:textColor="@color/text_primary"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="14dp"
+                android:text="Join the team" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="32dp"
-                android:text="Join LeKwarta today"
-                android:textColor="@color/text_hint"
-                android:textSize="13sp" />
-
-            <!-- Full name -->
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/etRegName"
+                style="@style/LeKwarta.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:hint="Full Name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:layout_marginBottom="12dp"
+                android:hint="Full name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName|textCapWords" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRegName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textPersonName"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Email -->
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/etRegEmail"
+                style="@style/LeKwarta.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
+                android:layout_marginBottom="12dp"
                 android:hint="Email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRegEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textEmailAddress"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Password -->
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/etRegPassword"
+                style="@style/LeKwarta.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:hint="Password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:passwordToggleEnabled="true"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:layout_marginBottom="12dp"
+                android:hint="Password (6+ characters)"
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRegPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textPassword"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Confirm password -->
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/etRegConfirm"
+                style="@style/LeKwarta.Input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:hint="Confirm Password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:passwordToggleEnabled="true"
-                app:boxStrokeColor="@color/input_stroke"
-                app:hintTextColor="@color/text_hint"
-                app:boxBackgroundColor="@color/input_bg">
+                android:layout_marginBottom="12dp"
+                android:hint="Confirm password"
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etRegConfirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary"
-                    android:inputType="textPassword"
-                    android:textSize="15sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Register button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
+                style="@style/LeKwarta.GoldButton"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:text="Create Account"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="@color/bg_dark"
-                app:backgroundTint="@color/green_primary"
-                app:cornerRadius="12dp" />
-
-            <!-- Progress -->
-            <ProgressBar
-                android:id="@+id/pbRegister"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:visibility="gone"
-                android:indeterminateTint="@color/green_primary" />
+                android:layout_marginTop="4dp"
+                android:text="Create account" />
 
-            <!-- Go to login -->
             <TextView
                 android:id="@+id/tvGoToLogin"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:padding="12dp"
                 android:text="Already have an account? Log in"
-                android:textColor="@color/green_primary"
-                android:textSize="14sp"
-                android:clickable="true"
-                android:focusable="true" />
-
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp" />
         </LinearLayout>
 
-    </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Your data stays on this phone."
+            android:textColor="@color/text_hint"
+            android:textSize="12sp" />
+    </LinearLayout>
 </ScrollView>

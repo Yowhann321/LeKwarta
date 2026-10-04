@@ -24,12 +24,10 @@ class StockAdapter(
 
         // Muted accent colours for avatar backgrounds — cycles through list
         private val AVATAR_COLORS = listOf(
-            0xFF1E3A5F.toInt(), // deep blue
-            0xFF2D4A22.toInt(), // deep green
-            0xFF4A2222.toInt(), // deep red
-            0xFF3A2D4A.toInt(), // deep purple
-            0xFF4A3A1E.toInt(), // deep amber
-            0xFF1E4A4A.toInt(), // deep teal
+            0xFF552583.toInt(), // Lakers purple
+            0xFF5C4410.toInt(), // deep gold
+            0xFF3B2560.toInt(), // dark purple
+            0xFF7B45B8.toInt(), // light purple
         )
     }
 
@@ -66,13 +64,13 @@ class StockAdapter(
             val pct = stock.changePercent
             val sign = if (pct >= 0) "+" else ""
             holder.tvChangePercent.text = "$sign${"%.2f".format(pct)}%"
-            val chipColor = if (pct >= 0) 0xFF1A3A2A.toInt() else 0xFF3A1A1A.toInt()
-            val textColor = if (pct >= 0) 0xFF34C759.toInt() else 0xFFFF3B30.toInt()
+            val chipColor = if (pct >= 0) 0xFF14301F.toInt() else 0xFF3A1620.toInt()
+            val textColor = if (pct >= 0) 0xFF4ADE80.toInt() else 0xFFFF6B6B.toInt()
             holder.tvChangePercent.background.mutate().setTint(chipColor)
             holder.tvChangePercent.setTextColor(textColor)
         } else {
             holder.tvChangePercent.text = "—"
-            holder.tvChangePercent.background.mutate().setTint(0xFF2A2A2A.toInt())
+            holder.tvChangePercent.background.mutate().setTint(0xFF261A3B.toInt())
             holder.tvChangePercent.setTextColor(Color.GRAY)
         }
 

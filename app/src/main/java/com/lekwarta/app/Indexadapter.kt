@@ -52,13 +52,13 @@ class IndexAdapter : RecyclerView.Adapter<IndexAdapter.IndexViewHolder>() {
             val pct = index.changePercent
             val sign = if (pct >= 0) "▲ +" else "▼ "
             holder.tvIndexChange.text = "$sign${"%.2f".format(pct)}%"
-            val chipColor = if (pct >= 0) 0xFF1A3A2A.toInt() else 0xFF3A1A1A.toInt()
-            val textColor = if (pct >= 0) 0xFF34C759.toInt() else 0xFFFF3B30.toInt()
+            val chipColor = if (pct >= 0) 0xFF14301F.toInt() else 0xFF3A1620.toInt()
+            val textColor = if (pct >= 0) 0xFF4ADE80.toInt() else 0xFFFF6B6B.toInt()
             holder.tvIndexChange.background.mutate().setTint(chipColor)
             holder.tvIndexChange.setTextColor(textColor)
         } else {
             holder.tvIndexChange.text = "—"
-            holder.tvIndexChange.background.mutate().setTint(0xFF2A2A2A.toInt())
+            holder.tvIndexChange.background.mutate().setTint(0xFF261A3B.toInt())
             holder.tvIndexChange.setTextColor(Color.GRAY)
         }
     }

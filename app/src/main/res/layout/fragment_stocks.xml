@@ -27,9 +27,9 @@
                 android:layout_marginBottom="4dp"
                 android:text="Markets"
                 android:textColor="@color/text_primary"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:fontFamily="sans-serif-condensed" />
 
             <TextView
                 android:id="@+id/tvLastUpdated"
@@ -48,7 +48,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"
                 android:text="MARKET OVERVIEW"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_hint"
                 android:textSize="11sp"
                 android:letterSpacing="0.12"
                 android:textAllCaps="true" />
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="WATCHLIST"
-                    android:textColor="@color/text_secondary"
+                    android:textColor="@color/text_hint"
                     android:textSize="11sp"
                     android:letterSpacing="0.12"
                     android:textAllCaps="true" />
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="📈"
+                    android:text="🏀"
                     android:textSize="48sp"
                     android:layout_marginBottom="12dp" />
 
@@ -123,7 +123,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tap + to add stocks to track"
+                    android:text="Tap + to scout stocks to follow"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>

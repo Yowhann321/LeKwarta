@@ -1,4 +1,4 @@
-// app/models/TransactionModel.kt - Make sure all categories are here
+// app/models/TransactionModel.kt
 package com.lekwarta.app.models
 
 import java.util.Date
@@ -12,14 +12,15 @@ data class Transaction(
     val description: String,
     val accountId: Int,
     val accountName: String,
-    val date: Date,
-    val createdAt: String? = null
-)
-
-enum class TransactionType(val value: String, val displayName: String, val icon: String) {
-    EXPENSE("expense", "Expense", "💸"),
-    INCOME("income", "Income", "💰"),
-    TRANSFER("transfer", "Transfer", "🔄")
+    val toAccountId: Int? = null,
+    val toAccountName: String? = null,
+    val date: Date
+) {
+    companion object {
+        const val EXPENSE = "expense"
+        const val INCOME = "income"
+        const val TRANSFER = "transfer"
+    }
 }
 
 enum class TransactionCategory(val value: String, val displayName: String, val icon: String) {
@@ -29,11 +30,15 @@ enum class TransactionCategory(val value: String, val displayName: String, val i
     BILLS("bills", "Bills", "📄"),
     HEALTH("health", "Health", "💊"),
     ENTERTAINMENT("entertainment", "Entertainment", "🎮"),
-    OTHER("other", "Other", "💳")
-}
+    OTHER("other", "Other", "💳");
 
-data class GroupedTransaction(
-    val date: Date,
-    val dateLabel: String,
-    val transactions: List<Transaction>
-)
+    companion object {
+        fun from(value: String) = entries.firstOrNull { it.value == value } ?: OTHER
+
+        fun iconFor(t: Transaction) = when (t.type) {
+            Transaction.INCOME -> "💵"
+            Transaction.TRANSFER -> "🔄"
+            else -> from(t.category).icon
+        }
+    }
+}

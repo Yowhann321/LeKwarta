@@ -2,17 +2,15 @@ package com.lekwarta.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
-import android.widget.*
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
-import java.io.IOException
+import com.lekwarta.app.data.LeKwartaDb
+import com.lekwarta.app.models.User
 
 class AuthActivity : AppCompatActivity() {
 
@@ -20,37 +18,33 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var layoutLogin: View
     private lateinit var layoutRegister: View
 
-    // Login views
-    private lateinit var etLoginEmail: TextInputEditText
-    private lateinit var etLoginPassword: TextInputEditText
+    private lateinit var etLoginEmail: EditText
+    private lateinit var etLoginPassword: EditText
     private lateinit var btnLogin: MaterialButton
+    private lateinit var btnDemo: MaterialButton
     private lateinit var tvGoToRegister: TextView
-    private lateinit var pbLogin: ProgressBar
 
-    // Register views
-    private lateinit var etRegName: TextInputEditText
-    private lateinit var etRegEmail: TextInputEditText
-    private lateinit var etRegPassword: TextInputEditText
-    private lateinit var etRegConfirm: TextInputEditText
+    private lateinit var etRegName: EditText
+    private lateinit var etRegEmail: EditText
+    private lateinit var etRegPassword: EditText
+    private lateinit var etRegConfirm: EditText
     private lateinit var btnRegister: MaterialButton
     private lateinit var tvGoToLogin: TextView
-    private lateinit var pbRegister: ProgressBar
 
-    // ─── HTTP ─────────────────────────────────────────────────────────────────
-    private val client = OkHttpClient()
-    private val JSON = "application/json; charset=utf-8".toMediaType()
+    private val db by lazy { LeKwartaDb.get(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // If already logged in, skip straight to main
-        if (SessionManager.isLoggedIn(this)) {
+        // If already logged in (and the user still exists), skip straight to main
+        if (SessionManager.isLoggedIn(this) && db.getUser(SessionManager.getUserId(this)) != null) {
             goToMain()
             return
         }
 
         setContentView(R.layout.activity_auth)
         bindViews()
+        etLoginEmail.setText(SessionManager.getLastEmail(this))
         showLogin()
     }
 
@@ -59,29 +53,26 @@ class AuthActivity : AppCompatActivity() {
         layoutLogin    = findViewById(R.id.layoutLogin)
         layoutRegister = findViewById(R.id.layoutRegister)
 
-        // Login
         etLoginEmail    = findViewById(R.id.etLoginEmail)
         etLoginPassword = findViewById(R.id.etLoginPassword)
         btnLogin        = findViewById(R.id.btnLogin)
+        btnDemo         = findViewById(R.id.btnDemo)
         tvGoToRegister  = findViewById(R.id.tvGoToRegister)
-        pbLogin         = findViewById(R.id.pbLogin)
 
-        // Register
         etRegName     = findViewById(R.id.etRegName)
         etRegEmail    = findViewById(R.id.etRegEmail)
         etRegPassword = findViewById(R.id.etRegPassword)
         etRegConfirm  = findViewById(R.id.etRegConfirm)
         btnRegister   = findViewById(R.id.btnRegister)
         tvGoToLogin   = findViewById(R.id.tvGoToLogin)
-        pbRegister    = findViewById(R.id.pbRegister)
 
         btnLogin.setOnClickListener { attemptLogin() }
+        btnDemo.setOnClickListener { startDemo() }
         btnRegister.setOnClickListener { attemptRegister() }
         tvGoToRegister.setOnClickListener { showRegister() }
         tvGoToLogin.setOnClickListener { showLogin() }
     }
 
-    // ─── Toggle views ─────────────────────────────────────────────────────────
     private fun showLogin() {
         layoutLogin.visibility    = View.VISIBLE
         layoutRegister.visibility = View.GONE
@@ -95,134 +86,52 @@ class AuthActivity : AppCompatActivity() {
     // ─── Login ────────────────────────────────────────────────────────────────
     private fun attemptLogin() {
         val email    = etLoginEmail.text.toString().trim()
-        val password = etLoginPassword.text.toString().trim()
+        val password = etLoginPassword.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            toast("Please fill in all fields")
+            toast("Enter your email and password")
             return
         }
-
-        // ── TEST ACCOUNT (remove before final demo) ──────────────
-        if (email == "test@lekwarta.com" && password == "test123") {
-            SessionManager.saveSession(this, "test_token", 1, "Juan dela Cruz")
-            goToMain()
+        val user = db.login(email, password)
+        if (user == null) {
+            etLoginPassword.error = "Wrong email or password"
             return
         }
-        // ─────────────────────────────────────────────────────────
+        startSession(user)
+    }
 
-        setLoginLoading(true)
-
-        val body = JSONObject().apply {
-            put("email", email)
-            put("password", password)
-        }.toString().toRequestBody(JSON)
-
-        val request = Request.Builder()
-            .url("${ApiClient.BASE_URL}/login.php")
-            .post(body)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    setLoginLoading(false)
-                    toast("Network error: ${e.message}")
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string() ?: ""
-                runOnUiThread {
-                    setLoginLoading(false)
-                    try {
-                        val json = JSONObject(responseBody)
-                        if (json.getBoolean("success")) {
-                            val token  = json.getString("token")
-                            val userId = json.getInt("user_id")
-                            val name   = json.getString("name")
-                            SessionManager.saveSession(this@AuthActivity, token, userId, name)
-                            goToMain()
-                        } else {
-                            toast(json.getString("message"))
-                        }
-                    } catch (e: Exception) {
-                        toast("Unexpected response from server")
-                    }
-                }
-            }
-        })
+    private fun startDemo() {
+        val user = db.loadDemoUser()
+        toast("Demo account loaded with sample data")
+        startSession(user)
     }
 
     // ─── Register ─────────────────────────────────────────────────────────────
     private fun attemptRegister() {
         val name     = etRegName.text.toString().trim()
         val email    = etRegEmail.text.toString().trim()
-        val password = etRegPassword.text.toString().trim()
-        val confirm  = etRegConfirm.text.toString().trim()
+        val password = etRegPassword.text.toString()
+        val confirm  = etRegConfirm.text.toString()
 
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            toast("Please fill in all fields")
-            return
-        }
-        if (password != confirm) {
-            toast("Passwords do not match")
-            return
-        }
-        if (password.length < 6) {
-            toast("Password must be at least 6 characters")
-            return
+        when {
+            name.isEmpty() -> { etRegName.error = "Enter your name"; return }
+            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> { etRegEmail.error = "Enter a valid email"; return }
+            password.length < 6 -> { etRegPassword.error = "Use at least 6 characters"; return }
+            password != confirm -> { etRegConfirm.error = "Passwords don't match"; return }
         }
 
-        setRegisterLoading(true)
-
-        val body = JSONObject().apply {
-            put("name", name)
-            put("email", email)
-            put("password", password)
-        }.toString().toRequestBody(JSON)
-
-        val request = Request.Builder()
-            .url("${ApiClient.BASE_URL}/register.php")
-            .post(body)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    setRegisterLoading(false)
-                    toast("Network error: ${e.message}")
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body?.string() ?: ""
-                runOnUiThread {
-                    setRegisterLoading(false)
-                    try {
-                        val json = JSONObject(responseBody)
-                        if (json.getBoolean("success")) {
-                            toast("Account created! Please log in.")
-                            showLogin()
-                        } else {
-                            toast(json.getString("message"))
-                        }
-                    } catch (e: Exception) {
-                        toast("Unexpected response from server")
-                    }
-                }
-            }
-        })
+        val user = db.register(name, email, password)
+        if (user == null) {
+            etRegEmail.error = "That email is already registered"
+            return
+        }
+        toast("Welcome to LeKwarta, ${name.substringBefore(' ')}")
+        startSession(user)
     }
 
-    // ─── Helpers ──────────────────────────────────────────────────────────────
-    private fun setLoginLoading(loading: Boolean) {
-        pbLogin.visibility = if (loading) View.VISIBLE else View.GONE
-        btnLogin.isEnabled = !loading
-    }
-
-    private fun setRegisterLoading(loading: Boolean) {
-        pbRegister.visibility = if (loading) View.VISIBLE else View.GONE
-        btnRegister.isEnabled = !loading
+    private fun startSession(user: User) {
+        SessionManager.saveSession(this, user.id, user.name, user.email)
+        goToMain()
     }
 
     private fun goToMain() {
@@ -230,6 +139,5 @@ class AuthActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun toast(msg: String) =
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

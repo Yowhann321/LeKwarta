@@ -1,12 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.LeKwartaDraft" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/green_primary</item>
-        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorPrimaryVariant">@color/purple</item>
         <item name="colorOnPrimary">@color/bg_dark</item>
+        <item name="colorSecondary">@color/gold</item>
+        <item name="colorOnSecondary">@color/bg_dark</item>
         <item name="colorSurface">@color/card_bg</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="colorControlActivated">@color/gold</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:windowBackground">@color/bg_dark</item>
         <item name="android:statusBarColor">@color/bg_dark</item>
-        <item name="android:navigationBarColor">@color/card_bg</item>
+        <item name="android:navigationBarColor">@color/nav_bg</item>
+        <item name="android:alertDialogTheme">@style/LeKwarta.Dialog</item>
+        <item name="alertDialogTheme">@style/LeKwarta.Dialog</item>
+        <item name="materialAlertDialogTheme">@style/LeKwarta.Dialog</item>
+        <item name="android:datePickerDialogTheme">@style/LeKwarta.Dialog</item>
+    </style>
+
+    <!-- Base for the LeKwarta.* text and widget styles -->
+    <style name="LeKwarta" />
+
+    <style name="LeKwarta.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/gold</item>
+        <item name="colorAccent">@color/gold</item>
+        <item name="colorSurface">@color/card_bg</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+        <item name="android:background">@color/card_bg</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/LeKwarta.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/LeKwarta.DialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/LeKwarta.DialogButton</item>
+    </style>
+
+    <style name="LeKwarta.DialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/gold</item>
+    </style>
+
+    <style name="LeKwarta.Title">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="LeKwarta.Label">
+        <item name="android:textColor">@color/text_hint</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:letterSpacing">0.14</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="LeKwarta.Score">
+        <item name="android:textColor">@color/gold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="LeKwarta.Input">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:minHeight">52dp</item>
+    </style>
+
+    <style name="LeKwarta.GoldButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="backgroundTint">@color/gold</item>
+        <item name="android:textColor">@color/bg_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:minHeight">54dp</item>
+        <item name="cornerRadius">14dp</item>
+    </style>
+
+    <style name="LeKwarta.GhostButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/input_stroke</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:minHeight">54dp</item>
+        <item name="cornerRadius">14dp</item>
     </style>
 </resources>
