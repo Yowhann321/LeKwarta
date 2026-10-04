@@ -35,7 +35,7 @@
 - OkHttp for Finnhub market data
 - Custom views: the shot clock ring is drawn on a `Canvas`
 
-The first prototype talked to a PHP + MySQL backend on XAMPP. It now stores everything on the phone, so it runs anywhere without a server.
+The first prototype, our Machine Problem for Platform Technologies, talked to a PHP + MySQL backend on XAMPP. It now stores everything on the phone, so it runs anywhere without a server.
 
 ## Running it
 
@@ -48,4 +48,6 @@ The first prototype talked to a PHP + MySQL backend on XAMPP. It now stores ever
 
 ## Team
 
-Ric Bryan Masagca, Paul Jazzmir Entena, Kurt Tracy Amador, and Johann Lijauco.
+Originally our Machine Problem for Platform Technologies.
+
+Ric Bryan Masagca, Paul Jazzmir Entena, Kurt Tracy Amador, and Johann Lijauco (programmer).
