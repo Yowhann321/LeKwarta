@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_ticker_avatar.xml -->
+<!-- Circle background for the ticker avatar. Tint is set programmatically. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FF1E3A5F" />
+</shape>

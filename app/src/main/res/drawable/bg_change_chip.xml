@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_change_chip.xml -->
+<!-- Rounded pill background for the % change badge. Tint is set programmatically. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="6dp" />
+    <solid android:color="#FF2A2A2A" />
+</shape>
